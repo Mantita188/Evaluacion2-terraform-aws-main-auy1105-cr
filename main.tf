@@ -12,13 +12,10 @@ module "network" {
 
 # 2. LLAMADO AL MÓDULO REMOTO DE CÓMPUTO (EC2)
 module "compute" {
-  source                = "github.com/Mantita188/terraform-aws-ec2-auy1105-cr.git?ref=v0.1.4"
-  environment           = var.environment
-  vpc_id                = module.network.vpc_id
-  public_subnet_id      = module.network.public_subnet_1_id    # CORREGIDO: Nombre largo oficial
-  alb_security_group_id = module.network.alb_security_group_id # CORREGIDO: Nombre largo oficial
-  ami_id                = "ami-053b0d53c279acc90"
-  instance_type         = "t2.micro"
+  source    = "github.com/Mantita188/terraform-aws-ec2-auy1105-cr.git?ref=v0.1.4"
+  vpc_id    = module.network.vpc_id
+  subnet_id = module.network.public_subnet_1_id
+  alb_sg_id = module.network.alb_security_group_id
 }
 
 # 3. LLAMADO AL MÓDULO REMOTO DE ALMACENAMIENTO (S3)
@@ -30,7 +27,7 @@ module "storage" {
 
 # 4. LLAMADO AL NUEVO MÓDULO REMOTO DEL BALANCEADOR (ALB)
 module "alb" {
-  source                = "github.com/Mantita188/terraform-aws-alb-auy1105-cr.git?ref=v0.1.1" # <-- Cambiar a v0.1.1
+  source                = "github.com/Mantita188/terraform-aws-alb-auy1105-cr.git?ref=v0.1.1"
   environment           = var.environment
   vpc_id                = module.network.vpc_id
   alb_security_group_id = module.network.alb_security_group_id
