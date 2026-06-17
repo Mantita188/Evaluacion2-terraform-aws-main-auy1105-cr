@@ -30,7 +30,7 @@ module "storage" {
 
 # 4. LLAMADO AL NUEVO MÓDULO REMOTO DEL BALANCEADOR (ALB)
 module "alb" {
-  source                = "github.com/Mantita188/terraform-aws-alb-auy1105-cr.git?ref=v0.1.2" # Apuntaremos al nuevo parche v0.1.2 del ALB
+  source                = "github.com/Mantita188/terraform-aws-alb-auy1105-cr.git?ref=v0.1.1" # <-- Cambiar a v0.1.1
   environment           = var.environment
   vpc_id                = module.network.vpc_id
   alb_security_group_id = module.network.alb_security_group_id
